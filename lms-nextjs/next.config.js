@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App directory is default in Next.js 14
+  output: 'standalone',
+  env: {
+    BACKEND_URL: process.env.BACKEND_URL || 'http://localhost:8000'
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.BACKEND_URL || 'http://localhost:8000'}/api/:path*`
+      }
+    ]
+  }
 }
 
 module.exports = nextConfig
