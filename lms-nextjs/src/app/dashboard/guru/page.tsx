@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Navbar from '@/components/Navbar'
-import { isAuthenticated, isGuru } from '@/lib/auth'
+import { isAuthenticated, isGuru, logout } from '@/lib/auth'
 import api from '@/lib/api'
 import { DashboardGuru } from '@/lib/types'
 
@@ -40,24 +39,36 @@ export default function DashboardGuruPage() {
     }
   }
 
+  const handleLogout = () => {
+    logout()
+    router.push('/login')
+  }
+
   if (!isAuthenticated()) {
     return null
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Navbar />
         
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="mb-8 mt-16 lg:mt-8">
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
-                Selamat Datang Guru!
-              </h1>
-              <p className="text-gray-600">
-                Dashboard monitoring pembelajaran siswa
-              </p>
+            {/* Header with Logout Button */}
+            <div className="mb-8 mt-8 flex justify-between items-start">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-800 mb-2">
+                  Selamat Datang Guru!
+                </h1>
+                <p className="text-gray-600">
+                  Dashboard monitoring pembelajaran siswa
+                </p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 flex items-center gap-2"
+              >
+                Logout
+              </button>
             </div>
 
             {error && (
