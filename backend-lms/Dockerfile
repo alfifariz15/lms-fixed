@@ -21,7 +21,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy application files
+# First copy composer.json to check if it exists
+COPY composer.json ./
+
+# Copy the rest of application files  
 COPY . .
 
 # Install PHP dependencies
