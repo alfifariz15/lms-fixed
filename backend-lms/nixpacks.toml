@@ -1,11 +1,15 @@
 [phases.setup]
-nixPkgs = ['nodejs', 'php81', 'php81Packages.composer']
+nixPkgs = ['php81', 'php81Packages.composer']
 
 [phases.install]
-cmds = ['composer install --no-dev --optimize-autoloader']
+cmds = ['composer install --no-dev --optimize-autoloader --no-interaction']
 
 [phases.build]
-cmds = ['php artisan config:cache', 'php artisan route:cache']
+cmds = [
+    'php artisan config:cache || echo "Config cache skipped"',
+    'mkdir -p storage/logs',
+    'chmod -R 775 storage bootstrap/cache'
+]
 
 [start]
 cmd = 'php artisan serve --host=0.0.0.0 --port=$PORT'
