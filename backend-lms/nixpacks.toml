@@ -1,10 +1,11 @@
 [phases.setup]
-nixPkgs = ['php81', 'php81Packages.composer']
+nixPkgs = ['php82', 'php82Packages.composer']
 
 [phases.install]
 cmds = [
     'ls -la',
     'pwd', 
+    'rm -f composer.lock',
     'composer install --no-dev --optimize-autoloader --no-interaction'
 ]
 

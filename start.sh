@@ -8,6 +8,8 @@ cd backend-lms
 # Install dependencies if not installed
 if [ ! -d "vendor" ]; then
     echo "📦 Installing dependencies..."
+    # Remove old lock file to avoid compatibility issues
+    rm -f composer.lock
     composer install --no-dev --optimize-autoloader --no-interaction
 fi
 
