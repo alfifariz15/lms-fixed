@@ -1,10 +1,15 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:8000/api'
+// Get API URL from environment variables or fallback to Railway backend
+const API_BASE_URL = typeof window !== 'undefined' && (window as any).NEXT_PUBLIC_BACKEND_URL
+  ? (window as any).NEXT_PUBLIC_BACKEND_URL
+  : 'https://lms-fixed-production-c83a.up.railway.app'
+
+console.log('🔗 API Base URL:', API_BASE_URL)
 
 // Create axios instance
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
